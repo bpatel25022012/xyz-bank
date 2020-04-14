@@ -6,26 +6,25 @@ import org.openqa.selenium.By;
 /*
 Created By Bhavesh
 */public class CustomerLoginPage extends Utility {
-    By selectUser = By.xpath("//select[@name='userSelect']");
-    By loginCustomerBtn = By.xpath("//button[@class='btn btn-default']");
-    By yourNameText = By.xpath("//label[contains(text(),'Your Name :')]");
 
-    public void selectYourNameOnCustomerPage(String customer){
-        selectByVisibleTextFromDropDownMenu(selectUser, customer);
+    By yourName = By.id("userSelect");
+    By loginBtn = By.xpath("//button[@class='btn btn-default']");
+    By yourNameLabel = By.xpath("//div[@class='form-group']//label");
+
+    public void selectYourName(String name){
+        selectByVisibleTextFromDropDown(yourName, name);
     }
 
-    public void verifyThatYourNameTextIsDisplayed (){
-        verifyThatTextIsDisplayed(yourNameText, "Your Name :");
+    public void clickOnLoginButton(){
+        clickOnElement(loginBtn);
     }
 
-    public String getYourNameTextMessage (){
-        return getTextFromElement(yourNameText);
-    }
-
-    public void clickOnCustomerLoginButton(){
-        waitUntilElementToBeClickable(loginCustomerBtn, 20);
-        clickonElement(loginCustomerBtn);
-
+    public boolean isYourNameLabelDisplayed(){
+        if (getElement(yourNameLabel).isDisplayed()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 

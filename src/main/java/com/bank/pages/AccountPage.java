@@ -5,57 +5,56 @@ import org.openqa.selenium.By;
 
 /*
 Created By Bhavesh
-*/public class AccountPage extends Utility {
+*/
+public class AccountPage extends Utility {
+    By logOutBtn = By.xpath("//button[@class='btn logout']");
+    By transactionTab = By.xpath("//button[contains(text(),'Transactions')]");
     By depositTab = By.xpath("//button[contains(text(),'Deposit')]");
-    By amountDeposit = By.xpath("//input[@placeholder='amount']");
-    By depositBtn = By.xpath("//button[@class='btn btn-default']");
-    By depositSuccessText = By.xpath("//span[@class='error ng-binding']");
-
     By withdrawlTab = By.xpath("//button[contains(text(),'Withdrawl')]");
-    By amountWithdrawl = By.xpath("//input[@placeholder='amount']");
-    By withdrawlBtn = By.xpath("//button[@class='btn btn-default']");
-    By transactionSuccessText = By.xpath("//span[@class='error ng-binding']");
-     By homeButtonLink = By.xpath("//button[@class='btn home']");
+    By amount = By.xpath("//input[@placeholder='amount']");
+    By depositWithdrawBtn = By.xpath("//button[@class='btn btn-default']");
+    By errorMessage = By.xpath("//span[@class='error ng-binding']");
+    By homeButtonTab = By.xpath("//button[@class='btn home']");
 
-    public void clickOnDepositTab(){
-        clickonElement(depositTab);
-    }
-
-    public void enterDepositAmount(String depositAmount){
-        sendTextToElement(amountDeposit, depositAmount);
+    public void clickOnLogoutButton() {
+        clickOnElement(logOutBtn);
     }
 
-    public void clickOnDepositButton () {
-        clickonElement(depositBtn);
+    public boolean isLogoutButtonDisplayed() {
+        if (getElement(logOutBtn).isDisplayed()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public String getDepositSuccessfulText (){
-        return getTextFromElement(depositSuccessText);
-    }
-    public void verifyThatDepositSuccessfulTextisDisplayed(){
-        verifyThatTextIsDisplayed(depositSuccessText, "Deposit Successful");
-    }
-    public void clickOnWithdrawlTab (){
-        clickonElement(withdrawlTab);
+    public void clickOnTransactionTab() {
+        clickOnElement(transactionTab);
     }
 
-    public void enterWithdrawlAmount (String withdrawlAmount){
-        sendTextToElement(amountWithdrawl, withdrawlAmount);
+    public void clickOnDepositTab() {
+        clickOnElement(depositTab);
     }
 
-    public void clickOnWithdrawlButton (){
-        clickonElement(withdrawlBtn);
+    public void clickOnWithdrawlTab() {
+        clickOnElement(withdrawlTab);
     }
 
-    public void verifyThatTransactionSuccessfulTextisDisplayed() {
-        verifyThatTextIsDisplayed(transactionSuccessText, "Transaction successful");
+    public void enterAmount(int amount) {
+        sendTextToElement(this.amount, String.valueOf(amount));
     }
-    public String getTransactionSuccessfulText (){
-        return getTextFromElement(transactionSuccessText);
+
+    public void clickOnDepositWithdrawButton() {
+        clickOnElement(depositWithdrawBtn);
     }
+
+    public String getErrorSuccessMessage() {
+        return getTextFromElement(errorMessage);
+    }
+
     public void clickOnHomeBtn() {
-        clickonElement(homeButtonLink);
-
+        clickOnElement(homeButtonTab);
 
     }
 }
+

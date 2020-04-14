@@ -4,114 +4,106 @@ import com.bank.pages.*;
 import com.bank.testbase.TestBase;
 import org.openqa.selenium.Alert;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import static com.bank.utility.Utility.getRandomString;
+
 
 /*
 Created By Bhavesh
 */
 public class BankTest extends TestBase {
+
+    String firstName = null;
+    String lastName = null;
+
     HomePage homePage = new HomePage();
-    BankManagerLoginPage bankManagerLoginPage = new BankManagerLoginPage();
-    AddCustomerPage addCustomerPage = new AddCustomerPage();
-    OpenAccountPage openAccountPage = new OpenAccountPage();
-    CustomerLoginPage customerLoginPage = new CustomerLoginPage();
-    CustomerPage customerPage = new CustomerPage();
-    AccountPage accountPage =new AccountPage();
+    BankManagerLoginPage bml = new BankManagerLoginPage();
+    AddCustomerPage ac = new AddCustomerPage();
+    OpenAccountPage oap = new OpenAccountPage();
+    CustomerLoginPage cl = new CustomerLoginPage();
+    AccountPage acc = new AccountPage();
+    CustomerPage cp = new CustomerPage();
 
-    @Test (priority = 0)
+    @BeforeTest(groups = {"regression"})
+    public void setUp(){
+        firstName = getRandomString(5);
+        lastName = getRandomString(5);
+    }
+    @Test(priority = 0, groups = {"regression"})
 
-    public void bankManagerShouldAddCustomerSuccessfully()  {
+    public void bankManagerShouldAddCustomerSuccessfully(){
 
-        homePage.clickOnBankManagerLoginLink();
-        bankManagerLoginPage.clickOnAddCustomerLink();
-        addCustomerPage.enterFirstName("Chinki");
-        addCustomerPage.enterLastName("Vaghela");
-        addCustomerPage.enterPostCode("E77N33");
-        addCustomerPage.clickOnAddCustomerBtn();
+       homePage.clickOnBankManagerLoginTab();
+        bml.clickOnAddCustomerTab();
+        ac.enterFirstName(firstName);
+        ac.enterLastName(lastName);
+        ac.enterPostcode("HA2 6JT");
+        ac.clickOnAddCustomerButton();
         Alert alert = driver.switchTo().alert();
-        String expectedText = "Customer added successfully";
-        String actualText = alert.getText();
-        Assert.assertTrue(actualText.contains("Customer added successfully"),expectedText);
+        Assert.assertTrue(alert.getText().contains("Customer added successfully"));
         alert.accept();
-       // driver.navigate().refresh();
-        bankManagerLoginPage.clickOnHomeBtn();
+        bml.clickOnHomeBtn();
     }
 
-
-    @Test (priority = 1)
-
+    @Test(priority = 1,groups = {"regression"})
     public void bankManagerShouldOpenAccountSuccessfully(){
-        homePage.clickOnBankManagerLoginLink();
-        bankManagerLoginPage.clickOnOpenAccountLink();
-        openAccountPage.selectCustomerName("Chinki Vaghela");
-        openAccountPage.selectCurrency();
-        openAccountPage.clickOnProcessBtn();
+        homePage.clickOnBankManagerLoginTab();
+        bml.clickOnOpenAccountTab();
+        oap.selectCustomerName(firstName+" "+lastName );
+        oap.selectCurrency("Pound");
+        oap.clickOnProcessButton();
         Alert alert = driver.switchTo().alert();
-        String expectedText = "Account created successfully ";
-        String actualText = alert.getText();
-        Assert.assertTrue(actualText.contains("Account created successfully "),expectedText);
+        Assert.assertTrue(alert.getText().contains("Account created successfully "));
         alert.accept();
-        bankManagerLoginPage.clickOnHomeBtn();
-
-
+        bml.clickOnHomeBtn();
     }
 
-    @Test (priority = 2)
-
-    public void verifyCustomerShouldLoginAndLogoutSuccessfully(){
-        homePage.clickOnCustomerLoginLink();
-        customerLoginPage.selectYourNameOnCustomerPage("Chinki Vaghela");
-        customerLoginPage.clickOnCustomerLoginButton();
-        customerPage.verifyCustomerLogOutTabIsDisplayed();
-        String expectedTab = "Logout";
-        String actualTab = customerPage.getCustomerLogOutText();
-        Assert.assertEquals(expectedTab, actualTab);
-        customerPage.clickOnCustomerLogOutButton();
-        customerLoginPage.verifyThatYourNameTextIsDisplayed();
-        String expectedText = "Your Name :";
-        String actualText = customerLoginPage.getYourNameTextMessage();
-        Assert.assertEquals(expectedText, actualText);
-        bankManagerLoginPage.clickOnHomeBtn();
-
-
+    @Test(priority = 2,groups = {"regression"})
+    public void customerShouldLoginAndLogoutSuccessfully(){
+        homePage.clickOnCustomerLoginTab();
+        cl.selectYourName(firstName+" "+lastName);
+        cl.clickOnLoginButton();
+        Assert.assertTrue(acc.isLogoutButtonDisplayed());
+        acc.clickOnLogoutButton();
+        Assert.assertTrue(cl.isYourNameLabelDisplayed());
+        bml.clickOnHomeBtn();
     }
-    @Test (priority = 3)
 
-    public void verifyUserShouldDepositMoneySuccessfully(){
-        homePage.clickOnCustomerLoginLink();
-        customerLoginPage.selectYourNameOnCustomerPage("Chinki Vaghela");
-        customerLoginPage.clickOnCustomerLoginButton();
-        accountPage.clickOnDepositTab();
-        accountPage.enterDepositAmount("1000");
-        accountPage.clickOnDepositButton();
-        accountPage.verifyThatDepositSuccessfulTextisDisplayed();
-        accountPage.getDepositSuccessfulText();
-        String expectedText = "Deposit Successful";
-        String actualText = accountPage.getDepositSuccessfulText();
-        Assert.assertEquals(expectedText, actualText);
-        accountPage.clickOnHomeBtn();
-
-
-
-
-
+    @Test(priority = 3,groups = {"regression"})
+    public void customerShouldDepositMoneySuccessfully(){
+        homePage.clickOnCustomerLoginTab();
+        cl.selectYourName(firstName+" "+lastName);
+        cl.clickOnLoginButton();
+        acc.clickOnDepositTab();
+        acc.enterAmount(100);
+        acc.clickOnDepositWithdrawButton();
+        Assert.assertEquals(acc.getErrorSuccessMessage(),"Deposit Successful");
+        acc.clickOnHomeBtn();
     }
-    @Test (priority = 4)
 
-    public void customerShouldWithdrawMoneySuccessfully () {
-        homePage.clickOnCustomerLoginLink();
-        customerLoginPage.selectYourNameOnCustomerPage("Chinki Vaghela");
-        customerLoginPage.clickOnCustomerLoginButton();
-        accountPage.clickOnWithdrawlTab();
-        accountPage.enterWithdrawlAmount("50");
-        accountPage.clickOnWithdrawlButton();
-        accountPage.verifyThatTransactionSuccessfulTextisDisplayed();
-        String expectedText = "Transaction successful";
-        String actualText = accountPage.getTransactionSuccessfulText();
-        Assert.assertEquals(expectedText, actualText);
-
-
+    @Test(priority = 4,groups = {"regression"})
+    public void customerShouldWithdrawMoneySuccessfully(){
+        homePage.clickOnCustomerLoginTab();
+        cl.selectYourName(firstName+" "+lastName);
+        cl.clickOnLoginButton();
+        acc.clickOnWithdrawlTab();
+        acc.enterAmount(50);
+        acc.clickOnDepositWithdrawButton();
+        Assert.assertEquals(acc.getErrorSuccessMessage(),"Transaction successful");
+       acc.clickOnHomeBtn();
     }
+
+    @Test(priority = 5,groups = {"regression"})
+    public void bankManagerShouldDeleteCustomerSuccessfully(){
+        homePage.clickOnBankManagerLoginTab();
+        bml.clickOnCustomerTab();
+        cp.searchCustomerByName(firstName);
+        cp.deleteCustomer();
+    }
+
+
 
 
 }

@@ -5,20 +5,24 @@ import org.openqa.selenium.By;
 
 /*
 Created By Bhavesh
-*/public class HomePage extends Utility {
-
-
+*/
+public class HomePage extends Utility {
     By homeButtonLink = By.xpath("//button[@class='btn home']");
-    By customerLoginLink = By.xpath("//button[contains(text(),'Customer Login')]");
-    By bankManagerLoginLink = By.xpath("//button[contains(text(),'Bank Manager Login')]");
+    By customerLoginTab = By.xpath("//button[contains(text(),'Customer Login')]");
+    By bankManagerLoginTab = By.xpath("//button[contains(text(),'Bank Manager Login')]");
 
-public void clickOnHomeBtn(){
-    clickonElement(homeButtonLink);
-}
-public void clickOnCustomerLoginLink(){
-    clickonElement(customerLoginLink);
-}
-public void clickOnBankManagerLoginLink(){
-    clickonElement(bankManagerLoginLink);
-}
+    public void clickOnHomeBtn(){
+        clickOnElement(homeButtonLink);
+    }
+
+    public void clickOnCustomerLoginTab(){
+        clickOnElement(customerLoginTab);
+    }
+
+    public void clickOnBankManagerLoginTab(){
+       //waitUntilPresenceOfElementLocated(bankManagerLoginTab, 10);
+        clickOnElement(bankManagerLoginTab);
+    }
+
+
 }

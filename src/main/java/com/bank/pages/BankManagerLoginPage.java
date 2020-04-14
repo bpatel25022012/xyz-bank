@@ -6,27 +6,26 @@ import org.openqa.selenium.By;
 /*
 Created By Bhavesh
 */public class BankManagerLoginPage extends Utility {
-    By addCustomerLink = By.xpath("//button[contains(text(),'Add Customer')]");
-    By openAccountLink = By.xpath("//button[contains(text(),'Open Account')]");
-    By customersLink = By.xpath("//button[contains(text(),'Customers')]");
-    By homeButtonLink = By.xpath("//button[@class='btn home']");
 
-    public void clickOnAddCustomerLink() {
-        waitUntilElementToBeClickable(addCustomerLink, 30);
-        clickonElement(addCustomerLink);
+    By addCustomerTab = By.xpath("//button[contains(text(),'Add Customer')]");
+    By openAccountTab = By.xpath("//button[contains(text(),'Open Account')]");
+    By customersTab = By.xpath("//button[contains(text(),'Customers')]");
+    By homeButtonTab = By.xpath("//button[@class='btn home']");
+
+    public void clickOnAddCustomerTab(){
+        clickOnElement(addCustomerTab);
     }
 
-    public void clickOnOpenAccountLink() {
-
-        clickonElement(openAccountLink);
+    public void clickOnOpenAccountTab(){
+        clickOnElement(openAccountTab);
     }
 
-    public void clickOnCustomersLink() {
-
-        clickonElement(customersLink);
+    public void clickOnCustomerTab(){
+        clickOnElement(customersTab);
+    }
+    public void clickOnHomeBtn(){
+        clickOnElement(homeButtonTab);
     }
 
-    public void clickOnHomeBtn() {
-        clickonElement(homeButtonLink);
-    }
+
 }

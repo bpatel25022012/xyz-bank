@@ -7,19 +7,18 @@ import org.openqa.selenium.By;
 Created By Bhavesh
 */
 public class CustomerPage extends Utility {
-    By customerLogoutBtn = By.xpath("//button[@class='btn logout']");
+    By searchCustomer = By.xpath("//input[@placeholder='Search Customer']");
+    By deleteBtn = By.xpath("//tr[@class='ng-scope']//td//button");
 
-    public String getCustomerLogOutText (){
-        return getTextFromElement(customerLogoutBtn);
+    public void searchCustomerByName(String name){
+        sendTextToElement(searchCustomer, name);
     }
 
-    public void verifyCustomerLogOutTabIsDisplayed (){
-        verifyThatElementIsDisplayed(customerLogoutBtn);
+    public void deleteCustomer(){
+        clickOnElement(deleteBtn);
     }
 
-    public void clickOnCustomerLogOutButton(){
-        clickonElement(customerLogoutBtn);
-    }
+
 
 
 }

@@ -5,23 +5,24 @@ import org.openqa.selenium.By;
 
 /*
 Created By Bhavesh
-*/public class OpenAccountPage extends Utility {
-    By selectCustomerName = By.xpath("//select[@name='userSelect']");
-    By selectCurrency = By.xpath("//select[@name='currency']");
-    By processBtn = By.xpath("//button[contains(text(),'Process')]");
+*/
+public class OpenAccountPage extends Utility {
+    By customerName = By.xpath("//select[@id='userSelect']");
+    By currency = By.xpath("//select[@id='currency']");
+    By processBtn = By.xpath("//form[@name='myForm']//button");
 
-    public void selectCustomerName(String customerName){
-     selectByVisibleTextFromDropDownMenu(selectCustomerName,customerName);
-        //sendRandomUsernameToNextField(customerNameDDList);
-
-
+    public void selectCustomerName(String cName){
+        selectByVisibleTextFromDropDown(customerName, cName);
     }
-    public void selectCurrency(){
 
-        selectByValueFromDropDownMenu(selectCurrency,"Pound");
+    public void selectCurrency(String currency){
+        selectByVisibleTextFromDropDown(this.currency, currency);
     }
-    public void clickOnProcessBtn(){
-        clickonElement(processBtn);
+
+    public void clickOnProcessButton(){
+        clickOnElement(processBtn);
     }
+
+
 
 }

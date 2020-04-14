@@ -6,29 +6,26 @@ import org.openqa.selenium.By;
 /*
 Created By Bhavesh
 */public class AddCustomerPage extends Utility {
+    By firstName = By.xpath("//input[@placeholder='First Name']");
+    By lastName = By.xpath("//input[@placeholder='Last Name']");
+    By postcode = By.xpath("//input[@placeholder='Post Code']");
+    By addCustomerBtn = By.xpath("//button[@class='btn btn-default']");
 
-    By firstNameField = By.xpath("//input[@placeholder='First Name']");
-    By lastNameField = By.xpath("//input[@placeholder='Last Name']");
-    By postCodeField = By.xpath("//input[@placeholder='Post Code']");
-    By addCustomerBtn =By.xpath("/html[1]/body[1]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/form[1]/button[1]");
-
-
-    public void enterFirstName(String firstName){
-        sendTextToElement(firstNameField, firstName);
-       // sendRandomUsername(firstNameField);
+    public void enterFirstName(String fName) {
+        sendTextToElement(firstName, fName);
     }
 
-    public void enterLastName(String lastName){
-        sendTextToElement(lastNameField,lastName);
-
-    }
-    public void enterPostCode(String postCode){
-
-        sendTextToElement(postCodeField,postCode);
+    public void enterLastName(String lName) {
+        sendTextToElement(lastName, lName);
     }
 
-    public void clickOnAddCustomerBtn(){
-        clickonElement(addCustomerBtn);
+    public void enterPostcode(String pCode) {
+        sendTextToElement(postcode, pCode);
+    }
+
+    public void clickOnAddCustomerButton() {
+        clickOnElement(addCustomerBtn);
     }
 
 }
+
